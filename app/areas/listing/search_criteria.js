@@ -2,9 +2,9 @@ var module = angular.module('octopus-library');
 
 module.factory('searchCriteria', function() {
   return {
-    create: function(max) {
+    create: function(max, text) {
       var result = {
-        text: '',
+        text: (text === null || text === undefined) ? '' : text,
         maxResults: max
       };
 
@@ -15,7 +15,7 @@ module.factory('searchCriteria', function() {
 
         var lc = result.text.toLowerCase();
         return item.Name.toLowerCase().indexOf(lc) !== -1 ||
-          item.Description.toLowerCase().indexOf(lc) !== -1;
+          ((item.Description !== null) && (item.Description.toLowerCase().indexOf(lc) !== -1));
       };
 
       return result;
